@@ -1,0 +1,604 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{teste3\_RComSolr}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{k+kp}{getwd}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    '/home/03390878700/Documentos/cursos/Curso R/Scripts'
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} dat.dir \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{/home/03390878700/Documentos/cursos/Curso R/Scripts/\PYZsq{}}
+          wrk.dir \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{/home/03390878700/Documentos/cursos/Curso R/Scripts/\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{k+kp}{setwd}\PY{p}{(}wrk.dir\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{k+kp}{getwd}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    '/home/03390878700/Documentos/cursos/Curso R/Scripts'
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} DAT \PY{o}{\PYZlt{}\PYZhy{}} read.table\PY{p}{(}\PY{k+kp}{paste}\PY{p}{(}dat.dir\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{exemplocompraver.csv\PYZdq{}}\PY{p}{,} sep \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{,} sep \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{,\PYZdq{}}\PY{p}{,} header \PY{o}{=} \PY{k+kc}{TRUE}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{k+kp}{head}\PY{p}{(}DAT\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llllllllllllllllllllllllllllllllllllllllllllllll}
+ id & ano\_resultado\_compra\_s & anomes\_resultado\_compra\_s & co\_orgao\_siafi\_s & no\_orgao\_siafi\_s & co\_unidade\_gestora\_s & no\_unidade\_gestora\_s & uf\_resp\_compra\_s & co\_modal\_compra\_grupo\_s & no\_modal\_compra\_grupo\_s & ⋯ & nu\_economia\_pregao\_anual\_td & nu\_var\_acumulada\_anual\_td & no\_tipo\_item\_s & mes\_resultado\_compra\_ti & qtd\_ti & regra\_corte\_ti & vr\_ipca\_mensal\_td & X\_version\_ & score & vr\_ipca\_anual\_td\\
+\hline
+	 1,308e+33                                    & 2013                                         & 201308                                       & 52000                                        & MINISTERIO DEFESA                            & 160055                                       & 16 BATALHAO LOGISTICO- MEX/DF                & DF                                           & 5                                            & Pregão                                       & ⋯                                            &  -10,433333                                  & 0                                            & Material                                     & 8                                            & 1                                            & 0                                            & 1,045881                                     & 1,497754e+18                                 & 1                                            &     NA                                      \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 22000                                        & MINIST. DA AGRICUL.,PECUARIA E ABASTECIMENTO & 135017                                       & EMBRAPA/CNPGC                                & MS                                           & 5                                            & Pregão                                       & ⋯                                            & -300,801603                                  & 0                                            & Material                                     & 8                                            & 1                                            & 0                                            & 1,113496                                     & 1,497754e+18                                 & 1                                            &     NA                                      \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 15000                                        & JUSTICA DO TRABALHO                          &  80021                                       & TRIBUNAL REGIONAL DO TRABALHO DA 21A. REGIAO & RN                                           & 5                                            & Pregão                                       & ⋯                                            &  -38,438182                                  & 0                                            & Material                                     & 8                                            & 1                                            & 0                                            & 1,301947                                     & 1,497754e+18                                 & 1                                            &     NA                                      \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 26000                                        & MINISTERIO DA EDUCACAO                       & 154046                                       & FUNDACAO UNIVERSIDADE FEDERAL DE OURO PRETO  & MG                                           & 5                                            & Pregão                                       & ⋯                                            &    6,735751                                  & 0                                            & Material                                     & 8                                            & 1                                            & 0                                            & 1,470891                                     & 1,497754e+18                                 & 1                                            & 1,0569                                      \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 52000                                        & MINISTERIO DEFESA                            & 160431                                       & 4 REGIMENTO DE CAVALARIA BLINDADO/RS         & RS                                           & 5                                            & Pregão                                       & ⋯                                            &  -67,142857                                  & 0                                            & Material                                     & 8                                            & 1                                            & 0                                            & 1,188600                                     & 1,497754e+18                                 & 1                                            &     NA                                      \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 52000                                        & MINISTERIO DEFESA                            & 160139                                       & HOSPITAL DE GUARNICAO DE JOAO PESSOA         & PB                                           & 5                                            & Pregão                                       & ⋯                                            &  -72,413793                                  & 0                                            & Material                                     & 8                                            & 1                                            & 0                                            & 1,497830                                     & 1,497754e+18                                 & 1                                            &     NA                                      \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{k+kp}{tail}\PY{p}{(}DAT\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|llllllllllllllllllllllllllllllllllllllllllllllll}
+  & id & ano\_resultado\_compra\_s & anomes\_resultado\_compra\_s & co\_orgao\_siafi\_s & no\_orgao\_siafi\_s & co\_unidade\_gestora\_s & no\_unidade\_gestora\_s & uf\_resp\_compra\_s & co\_modal\_compra\_grupo\_s & no\_modal\_compra\_grupo\_s & ⋯ & nu\_economia\_pregao\_anual\_td & nu\_var\_acumulada\_anual\_td & no\_tipo\_item\_s & mes\_resultado\_compra\_ti & qtd\_ti & regra\_corte\_ti & vr\_ipca\_mensal\_td & X\_version\_ & score & vr\_ipca\_anual\_td\\
+\hline
+	5 & 1,308e+33                                   & 2013                                        & 201308                                      & 52000                                       & MINISTERIO DEFESA                           & 160431                                      & 4 REGIMENTO DE CAVALARIA BLINDADO/RS        & RS                                          & 5                                           & Pregão                                      & ⋯                                           &  -67,14286                                  & 0                                           & Material                                    & 8                                           & 1                                           & 0                                           & 1,188600                                    & 1,497754e+18                                & 1                                           & NA                                         \\
+	6 & 1,308e+33                                   & 2013                                        & 201308                                      & 52000                                       & MINISTERIO DEFESA                           & 160139                                      & HOSPITAL DE GUARNICAO DE JOAO PESSOA        & PB                                          & 5                                           & Pregão                                      & ⋯                                           &  -72,41379                                  & 0                                           & Material                                    & 8                                           & 1                                           & 0                                           & 1,497830                                    & 1,497754e+18                                & 1                                           & NA                                         \\
+	7 & 1,308e+33                                   & 2013                                        & 201308                                      & 52000                                       & MINISTERIO DEFESA                           & 160410                                      & 4 BATALHAO LOGISTICO EM SANTA MARIA/RS      & RS                                          & 5                                           & Pregão                                      & ⋯                                           &  -27,11864                                  & 0                                           & Material                                    & 8                                           & 1                                           & 0                                           & 1,119404                                    & 1,497754e+18                                & 1                                           & NA                                         \\
+	8 & 1,308e+33                                   & 2013                                        & 201308                                      & 26000                                       & MINISTERIO DA EDUCACAO                      & 154046                                      & FUNDACAO UNIVERSIDADE FEDERAL DE OURO PRETO & MG                                          & 5                                           & Pregão                                      & ⋯                                           &  -81,08108                                  & 0                                           & Material                                    & 8                                           & 1                                           & 0                                           & 1,322225                                    & 1,497754e+18                                & 1                                           & NA                                         \\
+	9 & 1,308e+33                                   & 2013                                        & 201308                                      & 52000                                       & MINISTERIO DEFESA                           & 160195                                      & COMANDO DO COMANDO MILITAR DO NORDESTE      & PE                                          & 5                                           & Pregão                                      & ⋯                                           & -594,44444                                  & 0                                           & Material                                    & 8                                           & 1                                           & 0                                           & 1,045881                                    & 1,497754e+18                                & 1                                           & NA                                         \\
+	10 & 1,308e+33                                   & 2013                                        & 201308                                      & 26000                                       & MINISTERIO DA EDUCACAO                      & 153296                                      & NUCLEO DE CIENCIAS AGRARIAS/UFMG            & MG                                          & 6                                           & Dispensa de Licitação                       & ⋯                                           &    0,00000                                  & 0                                           & Material                                    & 8                                           & 1                                           & 0                                           & 1,222254                                    & 1,497754e+18                                & 1                                           & NA                                         \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} by dimension}
+          
+          DAT\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{,} \PY{l+m}{1}\PY{o}{:}\PY{l+m}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllll}
+ id & ano\_resultado\_compra\_s & anomes\_resultado\_compra\_s & co\_orgao\_siafi\_s & no\_orgao\_siafi\_s\\
+\hline
+	 1,308e+33                                    & 2013                                         & 201308                                       & 52000                                        & MINISTERIO DEFESA                           \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 22000                                        & MINIST. DA AGRICUL.,PECUARIA E ABASTECIMENTO\\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 15000                                        & JUSTICA DO TRABALHO                         \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 26000                                        & MINISTERIO DA EDUCACAO                      \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 52000                                        & MINISTERIO DEFESA                           \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 52000                                        & MINISTERIO DEFESA                           \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 52000                                        & MINISTERIO DEFESA                           \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 26000                                        & MINISTERIO DA EDUCACAO                      \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 52000                                        & MINISTERIO DEFESA                           \\
+	 1,308e+33                                    & 2013                                         & 201308                                       & 26000                                        & MINISTERIO DA EDUCACAO                      \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{k+kp}{unique}\PY{p}{(}DAT\PY{o}{\PYZdl{}}no\PYZus{}orgao\PYZus{}siafi\PYZus{}s\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item MINISTERIO DEFESA
+\item MINIST. DA AGRICUL.,PECUARIA E ABASTECIMENTO
+\item JUSTICA DO TRABALHO
+\item MINISTERIO DA EDUCACAO
+\end{enumerate*}
+
+\emph{Levels}: \begin{enumerate*}
+\item 'JUSTICA DO TRABALHO'
+\item 'MINIST. DA AGRICUL.,PECUARIA E ABASTECIMENTO'
+\item 'MINISTERIO DA EDUCACAO'
+\item 'MINISTERIO DEFESA'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{k+kp}{range}\PY{p}{(}DAT\PY{o}{\PYZdl{}}co\PYZus{}orgao\PYZus{}siafi\PYZus{}s\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 15000
+\item 52000
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} DAT\PY{o}{\PYZdl{}}valor\PYZus{}preco\PYZus{}global\PYZus{}estim\PYZus{}td\PY{p}{[}\PY{l+m}{1}\PY{o}{:}\PY{l+m}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 3313
+\item 180
+\item 6091,28
+\item 90
+\item 561,6
+\item 225
+\item 1350
+\item 670
+\item 3600
+\item 960
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} plot\PY{p}{(}x \PY{o}{=} DAT\PY{o}{\PYZdl{}}vr\PYZus{}economia\PYZus{}pregao\PYZus{}td\PY{p}{,} y \PY{o}{=} DAT\PY{o}{\PYZdl{}}vr\PYZus{}ipca\PYZus{}mensal\PYZus{}td\PY{p}{,}
+               xlab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Valor\PYZdq{}}\PY{p}{,} ylab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Valor IPCA\PYZdq{}}\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}2E9FDF\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} hist\PY{p}{(}DAT\PY{o}{\PYZdl{}}vr\PYZus{}economia\PYZus{}pregao\PYZus{}td\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{darkblue\PYZdq{}}\PY{p}{,} border\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}install.packages(\PYZdq{}solrium\PYZdq{})}
+        \PY{k+kn}{library}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{solrium\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{p}{(}cli \PY{o}{\PYZlt{}\PYZhy{}} SolrClient\PY{o}{\PYZdl{}}new\PY{p}{(}host \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{ver.serpro.gov.br/solr/compras/browse\PYZdq{}}\PY{p}{,} path \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{search\PYZdq{}}\PY{p}{,}
+                                port \PY{o}{=} \PY{k+kc}{NULL}\PY{p}{,} errors \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{complete\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<Solr Client>
+  host: ver.serpro.gov.br/solr/compras/browse
+  path: search
+  port: 
+  scheme: http
+  errors: complete
+  proxy:
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{c+c1}{\PYZsh{}pesquisando um assunto específico. }
+         
+         variavel1 \PY{o}{\PYZlt{}\PYZhy{}} cli\PY{o}{\PYZdl{}}\PY{k+kp}{search}\PY{p}{(}name \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{compras\PYZus{}shard20\PYZus{}replica1\PYZdq{}}\PY{p}{,}
+                                 params \PY{o}{=} \PY{k+kt}{list}\PY{p}{(}q \PY{o}{=} \PY{l+s}{\PYZsq{}}\PY{l+s}{no\PYZus{}orgao\PYZus{}siafi\PYZus{}s:\PYZdq{}MINISTERIO DEFESA\PYZdq{}\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} variavel1
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllllllllllllllllllllllllllllllllllllllllllll}
+ id & ano\_resultado\_compra\_s & anomes\_resultado\_compra\_s & co\_orgao\_siafi\_s & no\_orgao\_siafi\_s & co\_unidade\_gestora\_s & no\_unidade\_gestora\_s & uf\_resp\_compra\_s & co\_modal\_compra\_grupo\_s & no\_modal\_compra\_grupo\_s & ⋯ & vr\_economia\_pregao\_td & nu\_economia\_pregao\_anual\_td & nu\_var\_acumulada\_anual\_td & no\_tipo\_item\_s & mes\_resultado\_compra\_ti & qtd\_ti & regra\_corte\_ti & vr\_ipca\_mensal\_td & \_version\_ & vr\_ipca\_anual\_td\\
+\hline
+	 1308000000001600190500002200900045        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160019                                    & HOSPITAL DE GUARNICAO DE TABATINGA/MEX/AM & AM                                        & 5                                         & Pregão                                    & ⋯                                         &  -963.00                                  &   45.85714286                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.271391                                  & 1.497754e+18                              &    NA                                    \\
+	 1308000000001601400500007201200014        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160140                                    & COMANDO DA 9A. REGIAO MILITAR/MS          & MS                                        & 5                                         & Pregão                                    & ⋯                                         & 12000.00                                  &  -52.63157895                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.067809                                  & 1.497754e+18                              &    NA                                    \\
+	 1308000000001600880500008200900250        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160088                                    & HOSPITAL MILITAR DE ÁREA DE BRASÍLIA      & DF                                        & 5                                         & Pregão                                    & ⋯                                         &     0.30                                  &   -0.09596929                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.244519                                  & 1.497754e+18                              &    NA                                    \\
+	 1308000000007816000500004200700044        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 781600                                    & ESCOLA DE APRENDIZES-MARINHEIROS DO ES    & ES                                        & 5                                         & Pregão                                    & ⋯                                         &     1.50                                  &   -1.60427807                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.379737                                  & 1.497754e+18                              &    NA                                    \\
+	 1308000000001603390500005200600059        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160339                                    & 1 BATALHAO DE ENGENHARIA DE CONSTRUCAO    & RN                                        & 5                                         & Pregão                                    & ⋯                                         &  4288.40                                  & -470.42562527                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.441828                                  & 1.497754e+18                              &    NA                                    \\
+	 1308000000001200590500001201100100        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 120059                                    & IV COMANDO AEREO REGIONAL                 & SP                                        & 5                                         & Pregão                                    & ⋯                                         &    30.00                                  &  -14.28571429                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.119404                                  & 1.497754e+18                              &    NA                                    \\
+	 1308000000007955000500003200600065        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 795500                                    & BASE DE FUZILEIROS NAVAIS DO RIO MERITI   & RJ                                        & 5                                         & Pregão                                    & ⋯                                         &   166.00                                  &  -23.51274788                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.441828                                  & 1.497754e+18                              &    NA                                    \\
+	 1308000000001604540500006200800252        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160454                                    & MEX-28. BATALHAO DE CACADORES/SE          & SE                                        & 5                                         & Pregão                                    & ⋯                                         &  -329.75                                  &   69.45760927                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.288117                                  & 1.497754e+18                              & 1.059                                    \\
+	 1308000000001602490500017200600162        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160249                                    & ACADEMIA MILITAR DAS AGULHAS NEGRAS/RJ    & RJ                                        & 5                                         & Pregão                                    & ⋯                                         &  1035.00                                  &  -85.18518519                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.443419                                  & 1.497754e+18                              &    NA                                    \\
+	 1308000000001601760500022200700066        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160176                                    & COMANDO 1.GRUPAMENTO DE ENGENHARIA        & PB                                        & 5                                         & Pregão                                    & ⋯                                         &   230.20                                  &  -12.44391589                             & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.379737                                  & 1.497754e+18                              &    NA                                    \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} variavel1\PY{o}{\PYZdl{}}ano\PYZus{}resultado\PYZus{}compra\PYZus{}s
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item '2013'
+\item '2013'
+\item '2013'
+\item '2013'
+\item '2013'
+\item '2013'
+\item '2013'
+\item '2013'
+\item '2013'
+\item '2013'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} variavel2 \PY{o}{\PYZlt{}\PYZhy{}} \PY{k+kp}{head}\PY{p}{(}variavel1\PY{p}{,}\PY{l+m}{4}\PY{p}{)}
+         variavel2
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllllllllllllllllllllllllllllllllllllllllllll}
+ id & ano\_resultado\_compra\_s & anomes\_resultado\_compra\_s & co\_orgao\_siafi\_s & no\_orgao\_siafi\_s & co\_unidade\_gestora\_s & no\_unidade\_gestora\_s & uf\_resp\_compra\_s & co\_modal\_compra\_grupo\_s & no\_modal\_compra\_grupo\_s & ⋯ & vr\_economia\_pregao\_td & nu\_economia\_pregao\_anual\_td & nu\_var\_acumulada\_anual\_td & no\_tipo\_item\_s & mes\_resultado\_compra\_ti & qtd\_ti & regra\_corte\_ti & vr\_ipca\_mensal\_td & \_version\_ & vr\_ipca\_anual\_td\\
+\hline
+	 1308000000001600190500002200900045        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160019                                    & HOSPITAL DE GUARNICAO DE TABATINGA/MEX/AM & AM                                        & 5                                         & Pregão                                    & ⋯                                         &  -963.0                                   &  45.85714286                              & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.271391                                  & 1.497754e+18                              & NA                                       \\
+	 1308000000001601400500007201200014        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160140                                    & COMANDO DA 9A. REGIAO MILITAR/MS          & MS                                        & 5                                         & Pregão                                    & ⋯                                         & 12000.0                                   & -52.63157895                              & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.067809                                  & 1.497754e+18                              & NA                                       \\
+	 1308000000001600880500008200900250        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 160088                                    & HOSPITAL MILITAR DE ÁREA DE BRASÍLIA      & DF                                        & 5                                         & Pregão                                    & ⋯                                         &     0.3                                   &  -0.09596929                              & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.244519                                  & 1.497754e+18                              & NA                                       \\
+	 1308000000007816000500004200700044        & 2013                                      & 201308                                    & 52000                                     & MINISTERIO DEFESA                         & 781600                                    & ESCOLA DE APRENDIZES-MARINHEIROS DO ES    & ES                                        & 5                                         & Pregão                                    & ⋯                                         &     1.5                                   &  -1.60427807                              & 0                                         & Material                                  & 8                                         & 1                                         & 0                                         & 1.379737                                  & 1.497754e+18                              & NA                                       \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k+kp}{tail}\PY{p}{(}variavel1\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllllllllllllllllllllllllllllllllllllllllllll}
+ id & ano\_resultado\_compra\_s & anomes\_resultado\_compra\_s & co\_orgao\_siafi\_s & no\_orgao\_siafi\_s & co\_unidade\_gestora\_s & no\_unidade\_gestora\_s & uf\_resp\_compra\_s & co\_modal\_compra\_grupo\_s & no\_modal\_compra\_grupo\_s & ⋯ & vr\_economia\_pregao\_td & nu\_economia\_pregao\_anual\_td & nu\_var\_acumulada\_anual\_td & no\_tipo\_item\_s & mes\_resultado\_compra\_ti & qtd\_ti & regra\_corte\_ti & vr\_ipca\_mensal\_td & \_version\_ & vr\_ipca\_anual\_td\\
+\hline
+	 1308000000001603390500005200600059      & 2013                                    & 201308                                  & 52000                                   & MINISTERIO DEFESA                       & 160339                                  & 1 BATALHAO DE ENGENHARIA DE CONSTRUCAO  & RN                                      & 5                                       & Pregão                                  & ⋯                                       & 4288.40                                 & -470.42563                              & 0                                       & Material                                & 8                                       & 1                                       & 0                                       & 1.441828                                & 1.497754e+18                            &    NA                                  \\
+	 1308000000001200590500001201100100      & 2013                                    & 201308                                  & 52000                                   & MINISTERIO DEFESA                       & 120059                                  & IV COMANDO AEREO REGIONAL               & SP                                      & 5                                       & Pregão                                  & ⋯                                       &   30.00                                 &  -14.28571                              & 0                                       & Material                                & 8                                       & 1                                       & 0                                       & 1.119404                                & 1.497754e+18                            &    NA                                  \\
+	 1308000000007955000500003200600065      & 2013                                    & 201308                                  & 52000                                   & MINISTERIO DEFESA                       & 795500                                  & BASE DE FUZILEIROS NAVAIS DO RIO MERITI & RJ                                      & 5                                       & Pregão                                  & ⋯                                       &  166.00                                 &  -23.51275                              & 0                                       & Material                                & 8                                       & 1                                       & 0                                       & 1.441828                                & 1.497754e+18                            &    NA                                  \\
+	 1308000000001604540500006200800252      & 2013                                    & 201308                                  & 52000                                   & MINISTERIO DEFESA                       & 160454                                  & MEX-28. BATALHAO DE CACADORES/SE        & SE                                      & 5                                       & Pregão                                  & ⋯                                       & -329.75                                 &   69.45761                              & 0                                       & Material                                & 8                                       & 1                                       & 0                                       & 1.288117                                & 1.497754e+18                            & 1.059                                  \\
+	 1308000000001602490500017200600162      & 2013                                    & 201308                                  & 52000                                   & MINISTERIO DEFESA                       & 160249                                  & ACADEMIA MILITAR DAS AGULHAS NEGRAS/RJ  & RJ                                      & 5                                       & Pregão                                  & ⋯                                       & 1035.00                                 &  -85.18519                              & 0                                       & Material                                & 8                                       & 1                                       & 0                                       & 1.443419                                & 1.497754e+18                            &    NA                                  \\
+	 1308000000001601760500022200700066      & 2013                                    & 201308                                  & 52000                                   & MINISTERIO DEFESA                       & 160176                                  & COMANDO 1.GRUPAMENTO DE ENGENHARIA      & PB                                      & 5                                       & Pregão                                  & ⋯                                       &  230.20                                 &  -12.44392                              & 0                                       & Material                                & 8                                       & 1                                       & 0                                       & 1.379737                                & 1.497754e+18                            &    NA                                  \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} variavel1\PY{o}{\PYZdl{}}no\PYZus{}orgao\PYZus{}siafi\PYZus{}s \PY{c+c1}{\PYZsh{}Acessando um campo específico}
+\end{Verbatim}
+
+
+    \begin{enumerate*}
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\item 'MINISTERIO DEFESA'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} plot\PY{p}{(}x \PY{o}{=} variavel2\PY{o}{\PYZdl{}}vr\PYZus{}economia\PYZus{}pregao\PYZus{}td\PY{p}{,} y \PY{o}{=} variavel2\PY{o}{\PYZdl{}}vr\PYZus{}ipca\PYZus{}mensal\PYZus{}td\PY{p}{,}
+              xlab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Valor\PYZdq{}}\PY{p}{,} ylab \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Valor IPCA\PYZdq{}}\PY{p}{,} col \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZsh{}2E9FDF\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} hist\PY{p}{(}variavel1\PY{o}{\PYZdl{}}vr\PYZus{}economia\PYZus{}pregao\PYZus{}td\PY{p}{,} col\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{darkblue\PYZdq{}}\PY{p}{,} border\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{black\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
